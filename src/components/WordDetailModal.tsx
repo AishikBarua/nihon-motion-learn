@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react';
-import { X, Plus, Star, Check } from 'lucide-react';
+import { X, Plus, Star, Check, ExternalLink } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { gsap } from 'gsap';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AddToFlashcardDialog } from './AddToFlashcardDialog';
 import { useToast } from '@/hooks/use-toast';
 
@@ -29,6 +30,7 @@ interface WordDetailModalProps {
 
 export const WordDetailModal = ({ word, open, onClose }: WordDetailModalProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isLearned, setIsLearned] = useState(false);
@@ -184,19 +186,20 @@ export const WordDetailModal = ({ word, open, onClose }: WordDetailModalProps) =
               </Button>
             </div>
 
-            {/* Jisho Link */}
-            {word.source_meta?.jisho_url && (
-              <div className="animate-item text-center">
-                <a
-                  href={word.source_meta.jisho_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-orange-primary hover:underline"
-                >
-                  View on Jisho.org →
-                </a>
-              </div>
-            )}
+            {/* View Details Button */}
+            <div className="animate-item text-center pt-2">
+              <Button
+                onClick={() => {
+                  navigate(`/words/${word.id}`);
+                  onClose();
+                }}
+                variant="outline"
+                className="gap-2"
+              >
+                <ExternalLink className="w-4 h-4" />
+                View Details
+              </Button>
+            </div>
           </div>
         </DialogContent>
       </Dialog>

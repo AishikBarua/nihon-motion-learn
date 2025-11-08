@@ -8,6 +8,7 @@ import Auth from "./pages/Auth";
 import AppLayout from "./pages/AppLayout";
 import Dashboard from "./pages/Dashboard";
 import Wordlist from "./pages/Wordlist";
+import WordDetail from "./pages/WordDetail";
 import Flashcards from "./pages/Flashcards";
 import LearningHistory from "./pages/LearningHistory";
 import NotFound from "./pages/NotFound";
@@ -23,6 +24,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/words/:id" element={<WordDetail />} />
           <Route path="/app" element={<AppLayout />}>
             <Route index element={<Navigate to="/app/dashboard" replace />} />
             <Route path="dashboard" element={<Dashboard />} />
